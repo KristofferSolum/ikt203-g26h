@@ -1,6 +1,59 @@
 #include <iostream>
 #include "main.h"
 
+// Step 2 a
+// Create a global function called Add that takes two integers and returns the result.
+int Add(int a, int b) {
+    return a + b;
+}
+
+// Step 2 b
+// Create a Greet function that takes a std::string name parameter and returns "Hello, " + name.
+string Greet(const string &name) {
+    return "Hello, " + name;
+}
+
+// Step 2c
+//Create two callback predicate functions: IsEven and IsOdd.
+bool IsEven(int value) {
+    if (value % 2 == 0) {
+        return true;
+    }
+    return false;
+}
+bool IsOdd(int value) {
+    if (value % 2 != 0) {
+        return true;
+    }
+    return false;
+}
+
+//Create a FilterAndPrint function that accepts an array of integers,
+//the array's size (to prevent out-of-bounds loops), and a callback function as parameters.
+void FilterAndPrint(int arr[], int size, PredicatePtr function) {
+    for (int i = 0; i < size; i++) {
+        if (function(arr[i])) {
+            cout << arr[i] << " ";
+        }
+    }
+}
+
+// Step 2 d
+// Create three functions: Play, Pause, and Quit. They should take no parameters and return nothing,
+// only executing a std::cout with "Playing game...", "Game paused.", and "Quitting game." respectively.
+void Play() {
+    cout << "Playing game..." << endl;
+}
+
+void Pause() {
+    cout << "Game paused." << endl;
+}
+
+void Quit() {
+    cout << "Quitting game." << endl;
+}
+
+
 int main() {
 
     //  Step 1.1 a
@@ -53,17 +106,58 @@ int main() {
     cout << dataPack.rest.rest.value << endl;
 
     // Step 1.2 b
-    TStaticArray<int, 3> numbers;
-    numbers.Populate(0, 1);
-    numbers.Populate(1, 2);
-    numbers.Populate(2, 3);
+    TStaticArray<int, 3> numbers1;
+    numbers1.Populate(0, 1);
+    numbers1.Populate(1, 2);
+    numbers1.Populate(2, 3);
 
     cout<<"------------- Step 1.2 b -------------"<<endl;
-    numbers.Print();
+    numbers1.Print();
 
     // Step 1.2 c
     cout<<"------------- Step 1.2 c -------------"<<endl;
-    PrintContainer(numbers);
+    PrintContainer(numbers1);
+
+    // Step 2 a
+    // Call the function twice using your pointer:
+    // once using implicit dereference and once using explicit dereference.
+    AddPtr FAdd = &Add;
+    cout<<"------------- Step 2 a -------------"<<endl;
+    cout << FAdd(2, 3) << endl;
+    cout << (*FAdd)(2, 3) << endl;
+
+    // Step 2 b
+    // Create a type alias (using the modern using keyword or standard typedef)
+    // named GreetPtr for a pointer to a function returning a std::string.
+    GreetPtr FGreet = &Greet;
+    cout<<"------------- Step 2 b -------------"<<endl;
+    cout << (*FGreet)("Kristoffer") << endl;
+
+    // Step 2 c
+    //Create an array with 10 numbers and filter them by calling FilterAndPrint
+    //twice—once with IsEven and once with IsOdd.
+    int numbers2[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    cout<<"------------- Step 2 c -------------"<<endl;
+    FilterAndPrint(numbers2, 10, &IsEven);
+    cout << endl;
+    FilterAndPrint(numbers2, 10, &IsOdd);
+    cout << endl;
+
+    // Step 2 d
+    // Create an array of function pointers containing these three functions.
+    // Iterate over the array in a loop and execute all three functions dynamically.
+    cout<<"------------- Step 2 d -------------"<<endl;
+
+    GamePtr FPlay = &Play;
+    GamePtr FPause = &Pause;
+    GamePtr FQuit = &Quit;
+
+    GamePtr gamingList[4] = {FPlay, FPause, FPlay, FQuit};
+
+    for (const auto & i : gamingList) {
+        i();
+    }
+
 
     return 0;
 }
