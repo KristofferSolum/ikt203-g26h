@@ -53,6 +53,17 @@ void Quit() {
     cout << "Quitting game." << endl;
 }
 
+// Step 3 c
+void DoubleInt(int &val) {
+    val *= 2;
+}
+
+void CapitalizeChar(char &val) {
+    val = toupper(val);
+}
+
+
+
 
 int main() {
 
@@ -158,6 +169,27 @@ int main() {
         i();
     }
 
+    // Step 3 d
+    cout<<"------------- Step 3 d -------------"<<endl;
+
+    int nums[5] = {1, 2, 3, 4, 5};
+    char chars[5] = {'a', 'b', 'c', 'd', 'e'};
+
+    FActionFunc<int> FDoubleInt = &DoubleInt;
+    FActionFunc<char> FCapitalizeChar = &CapitalizeChar;
+
+    ProcessArray(nums, 5, FDoubleInt);
+    ProcessArray(chars, 5, FCapitalizeChar);
+
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    for (char c : chars) {
+        cout << c << " ";
+    }
+    cout << endl;
 
     return 0;
 }

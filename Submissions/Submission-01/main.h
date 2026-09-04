@@ -116,4 +116,23 @@ void Quit();
 
 using GamePtr = void(*)();
 
+
+// Step 3 a
+
+template <typename T>
+using FActionFunc = void(*)(T&);
+
+// Step 3 b
+template <typename T>
+void ProcessArray(T* arr, int size, FActionFunc<T> callback) {
+    for (int i = 0; i < size; i++) {
+        callback(arr[i]);
+    }
+}
+
+void DoubleInt(int& val);
+void CapitalizeChar(char& val);
+
+
+
 #endif //MAIN_H
