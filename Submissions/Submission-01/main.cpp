@@ -191,5 +191,18 @@ int main() {
     }
     cout << endl;
 
+    // Step 4 d
+    cout<<"------------- Step 4 d -------------"<<endl;
+
+    TDataAggregator<int> dataAggregator;
+    int arr[5] = {1, 2, 3, 4, 5};
+    ProcessWithContext(arr, 5, TDataAggregator<int>::StaticCallback, &dataAggregator);
+
+    for (int i : arr) {
+        cout << i << " ";
+    }
+    cout << endl;
+    cout<<"State Total: "<<dataAggregator.GetStateTotal()<<endl;
+
     return 0;
 }
