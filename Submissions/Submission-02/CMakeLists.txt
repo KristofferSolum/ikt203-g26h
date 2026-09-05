@@ -4,4 +4,6 @@ project(Submission_02)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Submission_02 main.cpp
-        main.h)
+        TMovie.cpp
+        TMovie.h
+        EMovieGenreType.h)
